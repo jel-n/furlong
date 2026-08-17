@@ -315,9 +315,6 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.track-paused .horse-sprite-running .leg {
-  animation-play-state: paused;
-}
 
 .lane {
   display: flex;
@@ -372,8 +369,8 @@
 
 .runner-badge {
   position: absolute;
-  left: 43%;
-  top: 40%;
+  left: 38%;
+  top: 60%;
   transform: translate(-50%, -50%);
   background: #fbf8f2;
   color: #241c14;
@@ -389,34 +386,39 @@
 }
 
 .horse-sprite {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: scaleX(-1);
+  flex-shrink: 0;
 }
 
-.horse-sprite-running .leg {
-  transform-origin: top center;
-  animation: gallop 0.35s infinite ease-in-out;
+.horse-sprite-inner {
+  display: inline-block;
 }
 
-.horse-sprite-running .leg-back-1 {
-  animation-delay: 0s;
-}
-.horse-sprite-running .leg-front-1 {
-  animation-delay: 0.17s;
-}
-.horse-sprite-running .leg-back-2 {
-  animation-delay: 0.09s;
-}
-.horse-sprite-running .leg-front-2 {
-  animation-delay: 0.26s;
+.horse-sprite-running {
+  animation: horse-gallop-bounce 0.4s infinite ease-in-out;
 }
 
-@keyframes gallop {
+.track-paused .horse-sprite-running {
+  animation-play-state: paused;
+}
+
+@keyframes horse-gallop-bounce {
   0%,
   100% {
-    transform: rotate(0deg);
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12%) rotate(-4deg);
   }
   50% {
-    transform: rotate(18deg);
+    transform: translateY(0) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-8%) rotate(-3deg);
   }
 }
 

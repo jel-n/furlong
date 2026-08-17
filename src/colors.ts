@@ -1,20 +1,18 @@
 export interface HorseColor {
   key: string
   label: string
-  body: string
-  bodyShade: string
-  mane: string
+  filter: string
 }
 
 export const PALETTE: HorseColor[] = [
-  { key: 'bay', label: 'Bay', body: '#7b4326', bodyShade: '#5f3319', mane: '#211712' },
-  { key: 'chestnut', label: 'Chestnut', body: '#9a5330', bodyShade: '#7a4025', mane: '#6b3820' },
-  { key: 'black', label: 'Black', body: '#221e1c', bodyShade: '#141110', mane: '#0a0908' },
-  { key: 'darkbay', label: 'Dark Bay/Brown', body: '#4a2f22', bodyShade: '#33201780', mane: '#130e0b' },
-  { key: 'gray', label: 'Gray/Grey', body: '#9b9a92', bodyShade: '#7c7b74', mane: '#57564f' },
-  { key: 'palomino', label: 'Palomino', body: '#cc9c46', bodyShade: '#ad7f34', mane: '#f2e6cc' },
-  { key: 'buckskin', label: 'Buckskin', body: '#c2a06b', bodyShade: '#a3844f', mane: '#2a211a' },
-  { key: 'white', label: 'White/Cremello', body: '#ece3cd', bodyShade: '#d8cbab', mane: '#cdbfa0' },
+  { key: 'bay', label: 'Bay', filter: 'hue-rotate(-8deg) saturate(1.5) brightness(0.68)' },
+  { key: 'chestnut', label: 'Chestnut', filter: 'hue-rotate(-4deg) saturate(1.6) brightness(0.92)' },
+  { key: 'black', label: 'Black', filter: 'brightness(0.25) saturate(1)' },
+  { key: 'darkbay', label: 'Dark Bay/Brown', filter: 'hue-rotate(-10deg) saturate(1.3) brightness(0.42)' },
+  { key: 'gray', label: 'Gray/Grey', filter: 'saturate(0.12) brightness(1.05)' },
+  { key: 'palomino', label: 'Palomino', filter: 'hue-rotate(6deg) saturate(1.2) brightness(1.12)' },
+  { key: 'buckskin', label: 'Buckskin', filter: 'hue-rotate(10deg) saturate(0.85) brightness(1.0)' },
+  { key: 'white', label: 'White/Cremello', filter: 'saturate(0.06) brightness(1.6) contrast(0.85)' },
 ]
 
 export function colorByKey(key: string): HorseColor {
