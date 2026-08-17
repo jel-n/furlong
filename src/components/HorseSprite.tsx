@@ -17,32 +17,49 @@ export default function HorseSprite({ colorKey, running = false, size = 56 }: Ho
       aria-hidden="true"
     >
       {/* tail */}
-      <path d="M10 30 C0 26, 0 42, 8 46 C4 40, 6 34, 12 33 Z" fill={c.mane} />
-      {/* hind leg back */}
-      <rect x="20" y="46" width="7" height="22" rx="2.5" fill={c.bodyShade} className="leg leg-back-1" />
-      <rect x="66" y="46" width="7" height="22" rx="2.5" fill={c.bodyShade} className="leg leg-front-1" />
-      {/* body */}
       <path
-        d="M14 34 C14 20, 30 14, 46 15 C60 16, 66 12, 78 16 C86 19, 88 28, 84 34 C90 34, 92 30, 96 32 C93 38, 87 40, 80 39 L78 46 C70 44, 40 44, 24 42 L18 44 Z"
+        d="M28 20 C16 14, 6 18, 4 28 C3 36, 8 44, 16 46 C10 40, 8 32, 12 26 C16 20, 22 20, 28 20 Z"
+        fill={c.mane}
+      />
+      {/* hind legs */}
+      <g className="leg leg-back-1">
+        <rect x="22" y="34" width="7" height="28" rx="2" fill={c.bodyShade} />
+        <rect x="21" y="59" width="9" height="5" rx="1.5" fill={c.mane} />
+      </g>
+      <g className="leg leg-back-2">
+        <rect x="35" y="36" width="7" height="27" rx="2" fill={c.body} />
+        <rect x="34" y="60" width="9" height="5" rx="1.5" fill={c.mane} />
+      </g>
+      {/* torso */}
+      <path
+        d="M22 34 C19 27, 21 19, 30 16 C40 13, 55 13, 62 16 C66 18, 66 24, 64 28 C64 34, 62 40, 56 42 C46 44, 34 44, 26 42 C22 40, 21 37, 22 34 Z"
         fill={c.body}
       />
       {/* front legs */}
-      <rect x="30" y="42" width="7" height="26" rx="2.5" fill={c.body} className="leg leg-back-2" />
-      <rect x="74" y="40" width="7" height="28" rx="2.5" fill={c.body} className="leg leg-front-2" />
+      <g className="leg leg-front-2">
+        <rect x="53" y="32" width="7" height="30" rx="2" fill={c.bodyShade} />
+        <rect x="52" y="59" width="9" height="5" rx="1.5" fill={c.mane} />
+      </g>
+      <g className="leg leg-front-1">
+        <rect x="64" y="30" width="7" height="31" rx="2" fill={c.body} />
+        <rect x="63" y="58" width="9" height="5" rx="1.5" fill={c.mane} />
+      </g>
       {/* neck + head */}
       <path
-        d="M78 16 C84 10, 84 4, 92 3 C90 8, 88 10, 90 14 C93 16, 96 20, 94 26 C91 22, 87 22, 84 25 C80 22, 78 20, 78 16 Z"
+        d="M62 16 C68 8, 76 4, 84 5 C88 6, 90 9, 90 13 C93 14, 96 17, 98 20 C99 22, 99 24, 97 26 C92 28, 84 27, 78 23 C76 21, 76 20, 76 19 C72 19, 68 19, 64 21 C63 19, 62 17, 62 16 Z"
         fill={c.body}
       />
       {/* mane */}
       <path
-        d="M46 15 C50 10, 58 8, 66 10 C72 12, 78 14, 82 18 C76 16, 68 15, 62 16 C54 17, 50 18, 46 21 Z"
+        d="M62 16 C66 10, 70 6, 76 4 C80 3, 84 3, 88 6 C83 6, 78 7, 74 9 C70 11, 66 14, 63 18 Z"
         fill={c.mane}
       />
-      {/* ear */}
-      <path d="M89 4 L93 -1 L94 6 Z" fill={c.body} />
-      {/* muzzle */}
-      <ellipse cx="93" cy="15" rx="4" ry="3" fill={c.bodyShade} />
+      {/* ears */}
+      <path d="M85 6 L86 1 L89 5 Z" fill={c.bodyShade} />
+      <path d="M89 6 L92 0 L94 6 Z" fill={c.body} />
+      {/* eye + nostril */}
+      <circle cx="91" cy="13" r="1.4" fill={c.mane} />
+      <ellipse cx="96" cy="22" rx="2" ry="1.5" fill={c.mane} />
     </svg>
   )
 }

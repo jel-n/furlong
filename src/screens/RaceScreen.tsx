@@ -51,6 +51,7 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
     () => Object.fromEntries(horses.map((h) => [h.id, 0])),
   )
   const [elapsed, setElapsed] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   const paramsRef = useRef<Record<string, HorseRaceParams>>({})
   const positionsRef = useRef<Record<string, number>>({})
@@ -59,6 +60,10 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
   const startRef = useRef<number | null>(null)
   const lastTRef = useRef(0)
   const finishedRef = useRef(false)
+  const pausedRef = useRef(false)
+  const pauseBeganAtRef = useRef<number | null>(null)
+  const pausedAccumRef = useRef(0)
+  const finalizeRef = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     paramsRef.current = Object.fromEntries(horses.map((h) => [h.id, genParams()]))
@@ -91,6 +96,10 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
     function finalize() {
       if (finishedRef.current) return
       finishedRef.current = true
+      if (rafRef.current !== undefined) {
+        cancelAnimationFrame(rafRef.current)
+        rafRef.current = undefined
+      }
       const results: RaceResultEntry[] = horses.map((h) => ({
         horse: h,
         place: 0,
@@ -107,10 +116,17 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
       if (soundOn) playFinishFanfare()
       onFinish(results)
     }
+    finalizeRef.current = finalize
 
     function frame(now: number) {
       if (startRef.current === null) startRef.current = now
-      const elapsedSec = (now - startRef.current) / 1000
+
+      if (pausedRef.current) {
+        rafRef.current = requestAnimationFrame(frame)
+        return
+      }
+
+      const elapsedSec = (now - startRef.current) / 1000 - pausedAccumRef.current / 1000
       const dt = elapsedSec - lastTRef.current
       lastTRef.current = elapsedSec
 
@@ -150,6 +166,27 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
 
   const progressPct = Math.min(100, (elapsed / durationSeconds) * 100)
 
+  function togglePause() {
+    if (phase !== 'running' || finishedRef.current) return
+    if (pausedRef.current) {
+      if (pauseBeganAtRef.current !== null) {
+        pausedAccumRef.current += performance.now() - pauseBeganAtRef.current
+      }
+      pauseBeganAtRef.current = null
+      pausedRef.current = false
+      setPaused(false)
+    } else {
+      pausedRef.current = true
+      pauseBeganAtRef.current = performance.now()
+      setPaused(true)
+    }
+  }
+
+  function handleEndRace() {
+    if (phase !== 'running' || finishedRef.current) return
+    finalizeRef.current?.()
+  }
+
   return (
     <div className="screen race-screen">
       {phase === 'countdown' && (
@@ -165,9 +202,24 @@ export default function RaceScreen({ horses, durationSeconds, soundOn, onFinish 
         <span className="race-timer">
           {elapsed.toFixed(1)}s / {durationSeconds}s
         </span>
+        {phase === 'running' && (
+          <div className="race-controls">
+            <button className="race-control-btn pause" onClick={togglePause}>
+              {paused ? '▶ Resume' : '⏸ Pause'}
+            </button>
+            <button className="race-control-btn end" onClick={handleEndRace}>
+              ⏹ End Race
+            </button>
+          </div>
+        )}
       </div>
 
-      <div className="track">
+      <div className={`track${paused ? ' track-paused' : ''}`}>
+        {paused && (
+          <div className="pause-overlay">
+            <span className="pause-label">PAUSED</span>
+          </div>
+        )}
         {horses.map((h) => (
           <div className="lane" key={h.id}>
             <div className="lane-label">

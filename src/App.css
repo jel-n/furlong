@@ -249,7 +249,43 @@
   text-align: right;
 }
 
+.race-controls {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.race-control-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.race-control-btn.pause {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.race-control-btn.pause:hover {
+  background: var(--cream-dark);
+}
+
+.race-control-btn.end {
+  background: var(--amber-dark);
+  color: white;
+}
+
+.race-control-btn.end:hover {
+  filter: brightness(0.95);
+}
+
 .track {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -257,6 +293,30 @@
   border-radius: var(--radius);
   padding: 10px;
   box-shadow: var(--shadow);
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 18, 14, 0.35);
+  border-radius: var(--radius);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.pause-label {
+  color: white;
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.track-paused .horse-sprite-running .leg {
+  animation-play-state: paused;
 }
 
 .lane {
@@ -312,15 +372,20 @@
 
 .runner-badge {
   position: absolute;
-  top: -6px;
-  right: -4px;
-  background: var(--amber-dark);
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 1px 5px;
-  border: 1px solid white;
+  left: 43%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  background: #fbf8f2;
+  color: #241c14;
+  font-size: 0.55rem;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 12px;
+  text-align: center;
+  border-radius: 2px;
+  padding: 1.5px 3px;
+  border: 1px solid #241c14;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .horse-sprite {
