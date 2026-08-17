@@ -1,0 +1,493 @@
+:root {
+  --cream: #faf3e3;
+  --cream-dark: #f0e6cd;
+  --panel: #ffffff;
+  --ink: #2b241c;
+  --ink-soft: #6b5f4f;
+  --green: #2f6b45;
+  --green-dark: #204a30;
+  --amber: #d9902b;
+  --amber-dark: #b9741c;
+  --track-green-1: #4d8c52;
+  --track-green-2: #427a47;
+  --line: #e3d7ba;
+  --radius: 14px;
+  --shadow: 0 4px 14px rgba(43, 36, 28, 0.1);
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+}
+
+.screen {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px 16px 48px;
+}
+
+/* ---------- Setup screen ---------- */
+
+.setup-header h1 {
+  margin: 0 0 4px;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+}
+
+.setup-panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.field-row label {
+  min-width: 170px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.count-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.count-control input[type='range'] {
+  flex: 1;
+  accent-color: var(--green);
+}
+
+.count-number,
+#duration {
+  width: 72px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.hint {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.toggle-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--cream-dark);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle-btn.on {
+  background: var(--green);
+  color: white;
+  border-color: var(--green-dark);
+}
+
+.horse-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.horse-row {
+  display: grid;
+  grid-template-columns: 48px 64px 1fr 150px;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: var(--shadow);
+}
+
+.horse-number-input {
+  width: 100%;
+  padding: 6px 4px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.horse-name-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.horse-color-select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.setup-footer,
+.results-footer {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  position: sticky;
+  bottom: 0;
+  padding-top: 10px;
+}
+
+.start-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(47, 107, 69, 0.35);
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.start-btn:hover:not(:disabled) {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.start-btn:disabled {
+  background: #b8b0a0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.secondary-btn {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background: var(--cream-dark);
+}
+
+/* ---------- Race screen ---------- */
+
+.race-screen {
+  position: relative;
+}
+
+.countdown-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 28, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.countdown-label {
+  font-size: 5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.race-topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 8px 0 18px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--cream-dark);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--amber);
+  transition: width 0.05s linear;
+}
+
+.race-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--ink-soft);
+  min-width: 90px;
+  text-align: right;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: linear-gradient(180deg, var(--track-green-1), var(--track-green-2));
+  border-radius: var(--radius);
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+.lane {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lane-label {
+  width: 120px;
+  flex-shrink: 0;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lane-track {
+  position: relative;
+  flex: 1;
+  height: 44px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 2px,
+    transparent 2px,
+    transparent 22px
+  );
+  border-radius: 8px;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.25);
+}
+
+.finish-flag {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+}
+
+.runner {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: 48px;
+}
+
+.runner-badge {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: var(--amber-dark);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 5px;
+  border: 1px solid white;
+}
+
+.horse-sprite {
+  display: block;
+}
+
+.horse-sprite-running .leg {
+  transform-origin: top center;
+  animation: gallop 0.35s infinite ease-in-out;
+}
+
+.horse-sprite-running .leg-back-1 {
+  animation-delay: 0s;
+}
+.horse-sprite-running .leg-front-1 {
+  animation-delay: 0.17s;
+}
+.horse-sprite-running .leg-back-2 {
+  animation-delay: 0.09s;
+}
+.horse-sprite-running .leg-front-2 {
+  animation-delay: 0.26s;
+}
+
+@keyframes gallop {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
+}
+
+/* ---------- Results screen ---------- */
+
+.results-screen {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.winner-kicker {
+  color: var(--amber-dark);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+
+.winner-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.winner-banner h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  text-align: left;
+}
+
+.results-row {
+  display: grid;
+  grid-template-columns: 52px 40px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 8px 14px;
+  box-shadow: var(--shadow);
+}
+
+.results-row.first-place {
+  background: #fff6e0;
+  border: 1px solid var(--amber);
+}
+
+.results-place {
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.results-row.first-place .results-place {
+  color: var(--amber-dark);
+}
+
+.results-name {
+  font-weight: 600;
+}
+
+.results-time {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.confetti-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  animation-name: confetti-fall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    top: -20px;
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0.9;
+    margin-left: var(--drift);
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .horse-row {
+    grid-template-columns: 36px 52px 1fr;
+    grid-template-areas: 'sprite number name' 'sprite color color';
+  }
+  .horse-row > .horse-sprite {
+    grid-area: sprite;
+  }
+  .horse-row > .horse-number-input {
+    grid-area: number;
+  }
+  .horse-row > .horse-name-input {
+    grid-area: name;
+  }
+  .horse-row > .horse-color-select {
+    grid-area: color;
+  }
+
+  .lane-label {
+    width: 74px;
+    font-size: 0.68rem;
+  }
+
+  .field-row label {
+    min-width: 130px;
+  }
+
+  .countdown-label {
+    font-size: 3.5rem;
+  }
+}
